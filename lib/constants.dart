@@ -1,6 +1,8 @@
 //constants.dart
 import 'encounter.dart';
 
+//TODO: В качестве констант разместить свой текстовый квест
+
 final Map<int, Encounter> encounters = {
   -1: Encounter(
     'Вы погибли',

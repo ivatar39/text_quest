@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
+      theme: ThemeData.light(),//TODO: Поменять тему приложения, сделать свою
       home: Scaffold(
         appBar: AppBar(
           title: Text('TextQuest'),
@@ -47,17 +47,27 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(encounter.text),
-              Text('$stage'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  MaterialButton(
-                    child: Text(encounter.options[0].text),
-                    onPressed: () {
-                      nextStage(encounter.options[0].id);
-                    },
-                  ),
-                ],
+              Flexible(flex: 4, child: Text('$stage')),
+              Flexible(
+                flex: 1,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: encounter.options.length,
+                  shrinkWrap: true,
+                  itemBuilder: ((BuildContext context, int index) {
+                    return MaterialButton(
+                      child: Text(
+                        encounter.options[index].text,
+                        style: TextStyle(
+                            //TODO: Поменять стиль текста, настроить на свой
+                            ),
+                      ),
+                      onPressed: () {
+                        nextStage(encounter.options[index].id);
+                      },
+                    );
+                  }),
+                ),
               ),
             ],
           ),
