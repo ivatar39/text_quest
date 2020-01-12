@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:text_quest/constants.dart';
+import 'package:text_quest/encounter.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,13 +14,30 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int stage = 0;
+  int stage; // Текущая стадия
+  Encounter encounter; // Текущее событие
+
+  @override
+  void initState() {
+    // Срабатывает при появлении экрана
+    stage = 0;
+    encounter = encounters[stage];
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    void nextStage(int nextStage) {
+      setState(() {
+        stage = nextStage;
+        encounter = encounters[stage];
+      });
+    }
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
+      theme: ThemeData.light(),
       home: Scaffold(
         appBar: AppBar(
           title: Text('TextQuest'),
@@ -27,23 +46,15 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('Какой-нибудь любой текст'),
+              Text(encounter.text),
               Text('$stage'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   MaterialButton(
-                    child: Text('Назад'),
+                    child: Text(encounter.options[0].text),
                     onPressed: () {
-                      setState(() => stage--);
-                      print('hello $stage');
-                    },
-                  ),
-                  MaterialButton(
-                    child: Text('Вперёд'),
-                    onPressed: () {
-                      setState(() => stage++);
-                      print('hello $stage');
+                      nextStage(encounter.options[0].id);
                     },
                   ),
                 ],
