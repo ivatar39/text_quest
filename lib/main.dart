@@ -14,40 +14,46 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int stage; // Текущая стадия
+  int id; // Текущая стадия
   Encounter encounter; // Текущее событие
 
   @override
   void initState() {
     // Срабатывает при появлении экрана
-    stage = 0;
-    encounter = encounters[stage];
+    id = 0;
+    encounter = encounters[id];
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    void nextStage(int nextStage) {
+    void nextStage(int nextId) {
       setState(() {
-        stage = nextStage;
-        encounter = encounters[stage];
+        id = nextId;
+        encounter = encounters[id];
       });
     }
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),//TODO: Поменять тему приложения, сделать свою
+      theme: ThemeData.light(), //TODO: Поменять тему приложения, сделать свою
       home: Scaffold(
         appBar: AppBar(
           title: Text('TextQuest'),
+          // TODO: Поменять название приложения
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(encounter.text),
-              Flexible(flex: 4, child: Text('$stage')),
+              Flexible(
+                  flex: 4,
+                  child: Text(
+                    encounter.text,
+                    style: TextStyle(fontSize: 18),
+                  )),
               Flexible(
                 flex: 1,
                 child: ListView.builder(
@@ -58,9 +64,7 @@ class _MyAppState extends State<MyApp> {
                     return MaterialButton(
                       child: Text(
                         encounter.options[index].text,
-                        style: TextStyle(
-                            //TODO: Поменять стиль текста, настроить на свой
-                            ),
+                        style: TextStyle(fontSize: 18),
                       ),
                       onPressed: () {
                         nextStage(encounter.options[index].id);

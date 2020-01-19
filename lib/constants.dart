@@ -6,7 +6,7 @@ import 'encounter.dart';
 final Map<int, Encounter> encounters = {
   -1: Encounter(
     'Вы погибли',
-    options: [],
+    options: [Option('Начать заново🔁', 0)],
   ),
   0: Encounter(
     'Добро пожаловать!',
@@ -14,10 +14,14 @@ final Map<int, Encounter> encounters = {
   ),
   1: Encounter(
     'Вы стоите у перекрётска, куда пойдёте?',
-    options: [Option('Налево', -1), Option('Прямо', -1), Option('Направо', 2)],
+    options: [
+      Option('Налево⬅', -1),
+      Option('Прямо⬆', -1),
+      Option('Направо➡', 2),
+    ],
   ),
   2: Encounter(
     'Вы победили!',
-    options: [],
+    options: [Option('Reset', 0)],
   ),
 };
